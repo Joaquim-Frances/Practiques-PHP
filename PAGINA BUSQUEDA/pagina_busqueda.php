@@ -6,9 +6,14 @@
     <title>Document</title>
 </head>
 <body>
-    
+
 <?php
-require ("ConexionBBDD.php");
+
+    $busqueda = $_GET['buscar'];
+
+
+
+    require ("../ConexionBBDD.php");
 
     $conexion = mysqli_connect ($db_direccion, $db_user, $db_pass);
 
@@ -20,7 +25,7 @@ require ("ConexionBBDD.php");
     mysqli_select_db($conexion, $db_name) or die("No se encuentra la base de datos");
     mysqli_set_charset($conexion, "utf-8");
 
-    $consulta = "SELECT * FROM pruebas";
+    $consulta = "SELECT * FROM pruebas WHERE nombre = '$busqueda'";
     $resultados = mysqli_query($conexion, $consulta);
 
    
@@ -30,8 +35,9 @@ require ("ConexionBBDD.php");
         echo "<table width='50%' align='center' border='1px'><tr><td>";
        
         echo $fila['sexo'] . "</td><td>";
-        echo $fila['edad'] . " </td><td>";
-        echo $fila['nombre'] . "</td></tr></table> " . "<br>";
+        echo $fila['nombre'] . " </td><td>";
+        echo $fila['apellido'] . " </td><td>";
+        echo $fila['edad'] . "</td></tr></table> " . "<br>";
        
         
 
@@ -41,5 +47,6 @@ require ("ConexionBBDD.php");
     
     
 ?>
+    
 </body>
 </html>
