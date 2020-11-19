@@ -6,10 +6,13 @@
     <title>Document</title>
 </head>
 <body>
-
 <?php
 
-    $busqueda = $_GET['buscar'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $sexo = $_POST['sexo'];
+    $edad = $_POST['edad'];
+    
 
 
 
@@ -25,28 +28,25 @@
     mysqli_select_db($conexion, $db_name) or die("No se encuentra la base de datos");
     mysqli_set_charset($conexion, "utf-8");
 
-    $consulta = "SELECT * FROM pruebas WHERE nombre = '$busqueda'";
-    $resultados = mysqli_query($conexion, $consulta);
+    $insert = "INSERT INTO `pruebas`(`nombre`, `apellido`, `sexo`, `edad`) VALUES ('{$nombre}','{$apellido}','{$sexo}',{$edad})";
+    
+    if (mysqli_query($conexion, $insert)) {
 
-   
-
-    while ($fila=mysqli_fetch_array($resultados, MYSQLI_ASSOC)){
-
-        echo "<table width='50%' align='center' border='1px'><tr><td>";
-       
-        echo $fila['sexo'] . "</td><td>";
-        echo $fila['nombre'] . " </td><td>";
-        echo $fila['apellido'] . " </td><td>";
-        echo $fila['edad'] . "</td></tr></table> " . "<br>";
-       
+        echo "Campos insertados con exito en la Base de Datos!
+        <a href='formsCampos.php'><button name='volver'><---- Volver</button></a>
+        ";
         
+    }else {
 
+        echo "Error al escribir";
     }
-    
+
     mysqli_close($conexion);
-    
-    
+
+
 ?>
     
 </body>
 </html>
+
+
